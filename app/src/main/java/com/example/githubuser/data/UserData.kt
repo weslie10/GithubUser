@@ -16,11 +16,11 @@ object UserData {
             "Symfony/Blackfire","Lille, France",
             arrayOf("symfony/symfony","splitsh/lite","twigphp/Twig")),
 
-        User("Andrew Nesbitt","Andrew Nesbitt",
+        User("Andrew Nesbitt","andrew",
             R.drawable.avatar9,
             2656,3250,
-            "-","Pekanbaru, Riau, Indonesia",
-            arrayOf("DoggoApp","Website","GithubUser")
+            "-","UK",
+            arrayOf("sass/node-sass","octobox/octobox","splitrb/split")
         ),
     )
 }
