@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".ui.DetailActivity">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/detail_photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:src="@drawable/user1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@id/detail_photo"
+        app:layout_constraintBottom_toBottomOf="@id/detail_photo"
+        app:layout_constraintLeft_toRightOf="@id/detail_photo">
+
+        <TextView
+            android:id="@+id/detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:text="Jake Wharton" />
+
+        <TextView
+            android:id="@+id/detail_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="JakeWharton" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ll_repositories"
+        style="@style/card_view"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/detail_photo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/ll_followers">
+
+        <LinearLayout
+            style="@style/ll_item_user"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/detail_repositories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="102"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_repositories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repositories"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ll_followers"
+        style="@style/card_view"
+        app:layout_constraintTop_toTopOf="@id/ll_repositories"
+        app:layout_constraintBottom_toBottomOf="@id/ll_repositories"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <LinearLayout
+            style="@style/ll_item_user"
+            android:padding="8dp">
+            <TextView
+                android:id="@+id/detail_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/textSize"
+                android:text="56995"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize"
+                android:text="@string/followers"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ll_following"
+        style="@style/card_view"
+        app:layout_constraintTop_toTopOf="@id/ll_followers"
+        app:layout_constraintBottom_toBottomOf="@id/ll_followers"
+        app:layout_constraintLeft_toRightOf="@id/ll_followers"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <LinearLayout
+            style="@style/ll_item_user"
+            android:padding="8dp">
+            <TextView
+                android:id="@+id/detail_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/textSize"
+                android:text="56995"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize"
+                android:text="@string/followers"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        app:layout_constraintWidth_percent=".85"
+        android:layout_marginVertical="24dp"
+        app:layout_constraintTop_toBottomOf="@id/ll_repositories"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@android:color/darker_gray" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".6"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/separator"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:cardElevation="1dp"
+        app:cardCornerRadius="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/iv_company"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/company"
+                app:tint="@color/black"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <TextView
+                android:id="@+id/detail_company"
+                style="@style/detail"
+                android:text="Google, Inc."
+                app:layout_constraintTop_toTopOf="@id/iv_company"
+                app:layout_constraintBottom_toBottomOf="@id/iv_company"
+                app:layout_constraintLeft_toRightOf="@id/iv_company" />
+
+            <ImageView
+                android:id="@+id/iv_location"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/location"
+                app:tint="@color/black"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/iv_company"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <TextView
+                android:id="@+id/detail_location"
+                style="@style/detail"
+                android:text="Pittsburgh, PA, USA"
+                app:layout_constraintTop_toTopOf="@id/iv_location"
+                app:layout_constraintBottom_toBottomOf="@id/iv_location"
+                app:layout_constraintLeft_toRightOf="@id/iv_location" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

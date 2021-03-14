@@ -7,10 +7,10 @@ import kotlinx.parcelize.Parcelize
 data class User(
     var name: String?,
     var username: String?,
-    var photo: Int?,
+    var avatar: Int?,
     var follower: Int?,
     var following: Int?,
+    var repository: Int?,
     var company: String?,
     var location: String?,
-    var repository: Array<String>?
 ):Parcelable
