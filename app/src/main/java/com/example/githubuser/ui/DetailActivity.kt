@@ -1,8 +1,8 @@
 package com.example.githubuser.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.bumptech.glide.Glide
 import com.example.githubuser.data.User
 import com.example.githubuser.databinding.ActivityDetailBinding
@@ -16,16 +16,20 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        actionBar?.title = "Github Users"
 
-        val actionbar = supportActionBar!!
-        actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayHomeAsUpEnabled(true)
+        }
 
         val user: User = intent.getParcelableExtra(EXTRA_USER)
 
         Glide.with(this)
             .load(user.avatar)
             .into(binding.detailPhoto)
+
         binding.detailName.text = user.name
         binding.detailUsername.text = user.username
         binding.detailRepositories.text = user.repository.toString()

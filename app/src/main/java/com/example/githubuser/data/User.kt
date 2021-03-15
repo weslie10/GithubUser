@@ -13,4 +13,4 @@ data class User(
     var repository: Int?,
     var company: String?,
     var location: String?,
-):Parcelable
+) : Parcelable

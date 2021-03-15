@@ -18,21 +18,22 @@ class SplashScreen : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         supportActionBar?.hide()
 
-        val splash = AnimationUtils.loadAnimation(this, R.anim.splash)
-        val text = AnimationUtils.loadAnimation(this, R.anim.text)
-
-        binding.splash.startAnimation(splash)
-        binding.text.startAnimation(text)
+        animation()
 
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }, 3000)
+    }
+
+    private fun animation() {
+        val splash = AnimationUtils.loadAnimation(this, R.anim.splash)
+        val text = AnimationUtils.loadAnimation(this, R.anim.text)
+
+        binding.splash.startAnimation(splash)
+        binding.text.startAnimation(text)
     }
 }
