@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.bumptech.glide.Glide
+import com.example.githubuser.R
 import com.example.githubuser.data.User
 import com.example.githubuser.databinding.ActivityDetailBinding
 
@@ -17,9 +18,9 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        actionBar?.title = "Github Users"
 
-        supportActionBar!!.apply {
+        supportActionBar?.apply {
+            title = R.string.app_name.toString()
             setDisplayHomeAsUpEnabled(true)
             setDisplayHomeAsUpEnabled(true)
         }
