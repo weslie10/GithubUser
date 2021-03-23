@@ -1,6 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Github Users</string>
-    <string name="repositories">Repositories</string>
-    <string name="followers">Followers</string>
-    <string name="following">Following</string>
+    <plurals name="repo">
+        <item quantity="zero">Repository</item>
+        <item quantity="one">Repository</item>
+        <item quantity="other">Repositories</item>
+    </plurals>
+    <plurals name="following">
+        <item quantity="zero">Following</item>
+        <item quantity="one">Following</item>
+        <item quantity="other">Followings</item>
+    </plurals>
+    <plurals name="follower">
+        <item quantity="zero">Follower</item>
+        <item quantity="one">Follower</item>
+        <item quantity="other">Followers</item>
+    </plurals>
+    <string name="search_hint">Enter Username</string>
+    <string name="search">Search</string>
+    <string name="language">Change Language</string>
+    <string name="emptyData">-</string>
+    <string name="no_match">No Match Found</string>
+    <string name="not_found">No</string>
 </resources>

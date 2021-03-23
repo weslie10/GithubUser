@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubuser.data.User
-import com.example.githubuser.databinding.ItemGridBinding
+import com.example.githubuser.databinding.ItemListBinding
 
-class UserAdapter(): RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
+class UserDetailAdapter(): RecyclerView.Adapter<UserDetailAdapter.ListViewHolder>() {
     private val listUser = ArrayList<User>()
     companion object {
         const val URL = "https://api.github.com"
@@ -19,7 +19,7 @@ class UserAdapter(): RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class ListViewHolder(val binding: ItemGridBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ListViewHolder(val binding: ItemListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
             with(binding) {
                 with(user) {
@@ -34,7 +34,7 @@ class UserAdapter(): RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val binding: ItemGridBinding = ItemGridBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemListBinding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
     }
 

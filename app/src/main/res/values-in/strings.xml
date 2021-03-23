@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Github Users</string>
+    <plurals name="repo">
+        <item quantity="other">Repositori</item>
+    </plurals>
+    <plurals name="following">
+        <item quantity="other">Pengikut</item>
+    </plurals>
+    <plurals name="follower">
+        <item quantity="other">Mengikuti</item>
+    </plurals>
+    <string name="search_hint">Masukkan Nama Panggilan</string>
+    <string name="search">Pencarian</string>
+    <string name="language">Ganti Bahasa</string>
+    <string name="emptyData">-</string>
+    <string name="no_match">Tidak ditemukan kecocokan</string>
+    <string name="not_found">Tidak ada</string>
+</resources>
