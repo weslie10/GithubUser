@@ -1,4 +1,4 @@
-package com.example.githubuser.ui.activity
+package com.example.githubuser.view.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import android.view.animation.*
-import com.example.githubuser.MainActivity
 import com.example.githubuser.R
 import com.example.githubuser.databinding.ActivitySplashScreenBinding
 

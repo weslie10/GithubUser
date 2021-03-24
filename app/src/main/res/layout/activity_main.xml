@@ -1,28 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eee">
+    android:background="@color/grey">
 
     <View
         android:id="@+id/shape"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:background="@drawable/shape"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:queryHint="@string/search_hint"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/shape_search"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:clickable="true"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user"
         style="@style/grid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+
+    <LinearLayout
+        android:id="@+id/not_found"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".99"
+        android:background="@color/grey"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_view"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:translationZ="1dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/shape_not_found"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            style="@style/grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_match"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:layout_marginTop="32dp"/>
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/progressBar"
@@ -35,8 +78,8 @@
         app:cardCornerRadius="24dp">
 
         <ProgressBar
-            android:layout_margin="16dp"
-            style="?android:attr/progressBarStyle"
+            android:padding="16dp"
+            android:background="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </androidx.cardview.widget.CardView>

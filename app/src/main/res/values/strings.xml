@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Github Users</string>
+    <string name="detail_user">Detail User</string>
     <plurals name="repo">
         <item quantity="zero">Repository</item>
         <item quantity="one">Repository</item>
         <item quantity="other">Repositories</item>
     </plurals>
     <plurals name="following">
-        <item quantity="zero">Following</item>
-        <item quantity="one">Following</item>
-        <item quantity="other">Followings</item>
+        <item quantity="other">Following</item>
     </plurals>
     <plurals name="follower">
         <item quantity="zero">Follower</item>

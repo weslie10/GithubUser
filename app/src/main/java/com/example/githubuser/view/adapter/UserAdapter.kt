@@ -1,17 +1,14 @@
-package com.example.githubuser.adapter
+package com.example.githubuser.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.githubuser.data.User
-import com.example.githubuser.databinding.ItemListBinding
+import com.example.githubuser.model.User
+import com.example.githubuser.databinding.ItemGridBinding
 
-class UserDetailAdapter(): RecyclerView.Adapter<UserDetailAdapter.ListViewHolder>() {
+class UserAdapter(): RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
     private val listUser = ArrayList<User>()
-    companion object {
-        const val URL = "https://api.github.com"
-    }
 
     fun setData(items: ArrayList<User>) {
         listUser.clear()
@@ -19,7 +16,7 @@ class UserDetailAdapter(): RecyclerView.Adapter<UserDetailAdapter.ListViewHolder
         notifyDataSetChanged()
     }
 
-    inner class ListViewHolder(val binding: ItemListBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ListViewHolder(val binding: ItemGridBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
             with(binding) {
                 with(user) {
@@ -34,7 +31,7 @@ class UserDetailAdapter(): RecyclerView.Adapter<UserDetailAdapter.ListViewHolder
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val binding: ItemListBinding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemGridBinding = ItemGridBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
     }
 
