@@ -9,13 +9,17 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.githubuser.R
 import com.example.githubuser.view.adapter.UserAdapter
 import com.example.githubuser.model.User
 import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.githubuser.viewmodel.MainViewModel
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -116,17 +120,22 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
             } else {
-                binding.notFound.visibility = View.VISIBLE
                 showLoading(false)
+                binding.notFound.visibility = View.VISIBLE
             }
         })
     }
 
     private fun showLoading(state: Boolean) {
-        binding.progressBar.visibility =
-            if(state)
-                View.VISIBLE
-            else
-                View.GONE
+        if(state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            lifecycleScope.launch(Dispatchers.Default) {
+                delay(1000L)
+                withContext(Dispatchers.Main) {
+                    binding.progressBar.visibility =View.GONE
+                }
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ import android.view.animation.*
 import com.example.githubuser.R
 import com.example.githubuser.databinding.ActivitySplashScreenBinding
 
-class SplashScreen : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashScreenBinding
     companion object {
         const val TIME = 3000L

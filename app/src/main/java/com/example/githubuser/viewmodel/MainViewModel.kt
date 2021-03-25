@@ -8,6 +8,7 @@ import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONArrayRequestListener
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.example.githubuser.BuildConfig
 import com.example.githubuser.model.User
 import org.json.JSONArray
 import org.json.JSONException
@@ -20,7 +21,6 @@ class MainViewModel: ViewModel() {
 
     companion object {
         const val URL = "https://api.github.com"
-        const val TOKEN = "YOUR_API_KEY"
     }
 
     fun getUser(): LiveData<ArrayList<User>> = listUser
@@ -32,16 +32,16 @@ class MainViewModel: ViewModel() {
     }
 
     fun all() {
-        var listData: ArrayList<User> = arrayListOf()
+        val listData: ArrayList<User> = arrayListOf()
         AndroidNetworking.get("$URL/users")
-            .addHeaders("Authorization", TOKEN)
+            .addHeaders("Authorization", BuildConfig.GITHUB_TOKEN)
             .addHeaders("User-Agent", "request")
             .setPriority(Priority.HIGH)
             .build()
             .getAsJSONArray(object : JSONArrayRequestListener {
                 override fun onResponse(response: JSONArray) {
                     try {
-                        for (i in 0..(response.length() - 1)) {
+                        for (i in 0 until response.length() - 1) {
                             with(response.getJSONObject(i)) {
                                 listData.add(
                                     User(
@@ -64,9 +64,9 @@ class MainViewModel: ViewModel() {
     }
 
     fun findByUsername(name: String?) {
-        var listData = arrayListOf<User>()
+        val listData = arrayListOf<User>()
         AndroidNetworking.get("$URL/search/users?q=${name}")
-            .addHeaders("Authorization", TOKEN)
+            .addHeaders("Authorization", BuildConfig.GITHUB_TOKEN)
             .addHeaders("User-Agent", "request")
             .setPriority(Priority.HIGH)
             .build()
@@ -76,7 +76,7 @@ class MainViewModel: ViewModel() {
                         val count = response.getInt("total_count")
                         if(count > 0) {
                             val data = response.getJSONArray("items")
-                            for (i in 0..(data.length() - 1)) {
+                            for (i in 0 until data.length() - 1) {
                                 with(data.getJSONObject(i)) {
                                     listData.add(
                                         User(
@@ -103,16 +103,16 @@ class MainViewModel: ViewModel() {
     }
 
     fun follow(name: String?, type: String?) {
-        var listData: ArrayList<User> = arrayListOf()
+        val listData: ArrayList<User> = arrayListOf()
         AndroidNetworking.get("${URL}/users/${name}/${type}")
-            .addHeaders("Authentication", TOKEN)
+            .addHeaders("Authentication", BuildConfig.GITHUB_TOKEN)
             .setPriority(Priority.HIGH)
             .build()
             .getAsJSONArray(object : JSONArrayRequestListener {
                 override fun onResponse(response: JSONArray) {
                     try {
                         if(response.length() > 0) {
-                            for (i in 0..(response.length() - 1)) {
+                            for (i in 0 until response.length() - 1) {
                                 with(response.getJSONObject(i)) {
                                     listData.add(
                                         User(

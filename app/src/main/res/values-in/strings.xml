@@ -17,4 +17,5 @@
     <string name="emptyData">-</string>
     <string name="no_match">Tidak ditemukan kecocokan</string>
     <string name="not_found">Tidak ada</string>
+    <string name="location">Location</string>
 </resources>

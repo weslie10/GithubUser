@@ -6,11 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser.R
 import com.example.githubuser.view.adapter.UserDetailAdapter
 import com.example.githubuser.databinding.FragmentUserBinding
 import com.example.githubuser.viewmodel.MainViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UserFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
@@ -31,7 +36,7 @@ class UserFragment : Fragment() {
             }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentUserBinding.inflate(inflater, container, false)
         adapter = UserDetailAdapter()
 
@@ -59,32 +64,37 @@ class UserFragment : Fragment() {
         binding.rvUser.adapter = adapter
     }
 
-    fun setData(type: String?) {
+    private fun setData(type: String?) {
         mainViewModel.getState().observe(viewLifecycleOwner, { state->
             if(state) {
                 binding.notFound.visibility = View.GONE
                 mainViewModel.getUser().observe(viewLifecycleOwner, { userItems ->
                     if (userItems != null) {
+                        showLoading(false)
                         adapter.setData(userItems)
                         recyclerView()
-                        showLoading(false)
                     }
                 })
             }
             else {
+                showLoading(false)
                 binding.notFound.text = "${resources.getString(R.string.not_found)} ${resources.getQuantityString(if(type == "followers") R.plurals.follower else R.plurals.following, 1)}"
                 binding.notFound.visibility = View.VISIBLE
-                showLoading(false)
             }
         })
 
     }
 
     private fun showLoading(state: Boolean) {
-        binding.progressBar.visibility =
-            if(state)
-                View.VISIBLE
-            else
-                View.GONE
+        if(state) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            lifecycleScope.launch(Dispatchers.Default) {
+                delay(3000L)
+                withContext(Dispatchers.Main) {
+                    binding.progressBar.visibility =View.GONE
+                }
+            }
+        }
     }
 }

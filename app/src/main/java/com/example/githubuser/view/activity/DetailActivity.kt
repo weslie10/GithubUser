@@ -5,15 +5,20 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.githubuser.R
 import com.example.githubuser.model.User
 import com.example.githubuser.databinding.ActivityDetailBinding
-import com.example.githubuser.view.fragment.SectionsPagerAdapter
+import com.example.githubuser.view.adapter.SectionsPagerAdapter
 import com.example.githubuser.viewmodel.DetailViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -46,9 +51,10 @@ class DetailActivity : AppCompatActivity() {
         setData()
     }
 
-    fun setData() {
+    private fun setData() {
         detailViewModel.getUser().observe(this, { userItems ->
             if (userItems != null) {
+                showLoadingDetail(false)
                 with(binding) {
                     Glide.with(this@DetailActivity)
                         .load(userItems.avatar)
@@ -69,13 +75,12 @@ class DetailActivity : AppCompatActivity() {
                     detailCompany.text = validateString(userItems.company as String)
                     detailLocation.text = validateString(userItems.location as String)
                 }
-                showLoadingDetail(false)
             }
         })
     }
 
     private fun setTabLayout(){
-        val name: User = intent.getParcelableExtra(EXTRA_USER)
+        val name: User = intent?.getParcelableExtra(EXTRA_USER) as User
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         sectionsPagerAdapter.name = name.username
@@ -98,12 +103,16 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun showLoadingDetail(state: Boolean) {
-        binding.progressBarDetail.visibility =
-            if(state) {
-                View.VISIBLE
-            } else {
-                View.GONE
+        if(state) {
+            binding.progressBarDetail.visibility = View.VISIBLE
+        } else {
+            lifecycleScope.launch(Dispatchers.Default) {
+                delay(2000L)
+                withContext(Dispatchers.Main) {
+                    binding.progressBarDetail.visibility =View.GONE
+                }
             }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

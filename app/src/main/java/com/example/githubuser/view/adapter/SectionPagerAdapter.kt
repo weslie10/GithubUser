@@ -1,11 +1,12 @@
-package com.example.githubuser.view.fragment
+package com.example.githubuser.view.adapter
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.githubuser.view.fragment.UserFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
-    private var type = arrayListOf(
+    private val type = arrayListOf(
         "followers",
         "following"
     )

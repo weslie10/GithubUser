@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.githubuser.model.User
 import com.example.githubuser.databinding.ItemGridBinding
 
-class UserAdapter(): RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
+class UserAdapter: RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
     private val listUser = ArrayList<User>()
 
     fun setData(items: ArrayList<User>) {
@@ -16,7 +16,7 @@ class UserAdapter(): RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class ListViewHolder(val binding: ItemGridBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ListViewHolder(private val binding: ItemGridBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
             with(binding) {
                 with(user) {

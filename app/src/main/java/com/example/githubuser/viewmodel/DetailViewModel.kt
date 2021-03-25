@@ -7,6 +7,7 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.example.githubuser.BuildConfig
 import com.example.githubuser.model.User
 import org.json.JSONException
 import org.json.JSONObject
@@ -18,7 +19,7 @@ class DetailViewModel: ViewModel() {
 
     fun getDetail(name: String) {
         AndroidNetworking.get("${MainViewModel.URL}/users/${name}")
-            .addHeaders("Authorization", MainViewModel.TOKEN)
+            .addHeaders("Authorization", BuildConfig.GITHUB_TOKEN)
             .addHeaders("User-Agent", "request")
             .setPriority(Priority.HIGH)
             .build()

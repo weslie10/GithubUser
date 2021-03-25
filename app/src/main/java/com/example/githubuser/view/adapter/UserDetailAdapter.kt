@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.githubuser.model.User
 import com.example.githubuser.databinding.ItemListBinding
 
-class UserDetailAdapter(): RecyclerView.Adapter<UserDetailAdapter.ListViewHolder>() {
+class UserDetailAdapter: RecyclerView.Adapter<UserDetailAdapter.ListViewHolder>() {
     private val listUser = ArrayList<User>()
 
     fun setData(items: ArrayList<User>) {
@@ -16,7 +16,7 @@ class UserDetailAdapter(): RecyclerView.Adapter<UserDetailAdapter.ListViewHolder
         notifyDataSetChanged()
     }
 
-    inner class ListViewHolder(val binding: ItemListBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ListViewHolder(private val binding: ItemListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
             with(binding) {
                 with(user) {
