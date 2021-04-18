@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Github Users</string>
     <string name="detail_user">Detail User</string>
+    <string name="favorite_user">Favorite User</string>
     <plurals name="repo">
-        <item quantity="zero">Repository</item>
         <item quantity="one">Repository</item>
         <item quantity="other">Repositories</item>
     </plurals>
@@ -11,15 +11,23 @@
         <item quantity="other">Following</item>
     </plurals>
     <plurals name="follower">
-        <item quantity="zero">Follower</item>
         <item quantity="one">Follower</item>
         <item quantity="other">Followers</item>
     </plurals>
     <string name="search_hint">Enter Username</string>
     <string name="search">Search</string>
-    <string name="language">Change Language</string>
     <string name="emptyData">-</string>
     <string name="no_match">No Match Found</string>
     <string name="not_found">No</string>
     <string name="location">Location</string>
+    <string name="company">Company</string>
+    <string name="favorite_button">Favorite Button</string>
+    <string name="favorite">Favorite</string>
+    <string name="setting">Setting</string>
+    <string name="change_languange">Change Languange</string>
+    <string name="alarm_message">Let\'s find user in Gihtub User</string>
+    <string name="appwidget_text">Github User Favorite</string>
+    <string name="no_favorite">No Favorite</string>
+    <string name="set_alarm">Set Alarm at 09.00 AM</string>
+    <string name="remove_alarm">Remove Alarm at 09.00 AM</string>
 </resources>

@@ -8,7 +8,7 @@ import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.example.githubuser.BuildConfig
-import com.example.githubuser.model.User
+import com.example.githubuser.model.user.User
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -44,7 +44,6 @@ class DetailViewModel: ViewModel() {
                         e.printStackTrace()
                     }
                 }
-
                 override fun onError(error: ANError) {
                     error.printStackTrace()
                 }

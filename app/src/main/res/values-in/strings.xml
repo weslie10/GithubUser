@@ -13,9 +13,19 @@
     </plurals>
     <string name="search_hint">Masukkan Nama Panggilan</string>
     <string name="search">Pencarian</string>
-    <string name="language">Ganti Bahasa</string>
     <string name="emptyData">-</string>
     <string name="no_match">Tidak ditemukan kecocokan</string>
     <string name="not_found">Tidak ada</string>
-    <string name="location">Location</string>
+    <string name="location">Lokasi</string>
+    <string name="company">Perusahaan</string>
+    <string name="favorite_button">Tombol Favorite</string>
+    <string name="favorite_user">Favorit User</string>
+    <string name="favorite">Favorit</string>
+    <string name="setting">Pengaturan</string>
+    <string name="change_languange">Ubah Bahasa</string>
+    <string name="alarm_message">Ayo cari pengguna di Github User</string>
+    <string name="appwidget_text">Favorit Github User</string>
+    <string name="no_favorite">Tidak ada Favorit</string>
+    <string name="set_alarm">Atur Alarm jam 9 pagi</string>
+    <string name="remove_alarm">Hapus Alarm jam 9 pagi</string>
 </resources>

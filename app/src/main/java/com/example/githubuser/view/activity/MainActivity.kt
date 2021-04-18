@@ -2,7 +2,6 @@ package com.example.githubuser.view.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -13,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.githubuser.R
 import com.example.githubuser.view.adapter.UserAdapter
-import com.example.githubuser.model.User
+import com.example.githubuser.model.user.User
 import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.githubuser.viewmodel.MainViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: UserAdapter
     private lateinit var mainViewModel: MainViewModel
+    private var animState = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,20 +37,12 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
         binding.rvUser.setHasFixedSize(true)
         binding.rvUser.layoutManager = GridLayoutManager(this, 2)
-        recycler()
 
-        searchListener()
         showLoading(true)
+        searchListener()
         mainViewModel.all()
-        mainViewModel.getSearch().observe(this, { search ->
-            if (search != "") {
-                mainViewModel.findByUsername(search)
-                setData()
-            }
-            else {
-                setData()
-            }
-        })
+        setData()
+        recycler()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -59,10 +51,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_change_settings) {
-            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivity(mIntent)
+        var mIntent: Intent? = null
+        when (item.itemId) {
+            R.id.favorite -> {
+                mIntent = Intent(this, FavoriteActivity::class.java)
+            }
+            R.id.settings -> {
+                mIntent = Intent(this, SettingActivity::class.java)
+            }
         }
+        if(mIntent!=null)   startActivity(mIntent)
+
         return super.onOptionsItemSelected(item)
     }
 
@@ -71,28 +70,37 @@ class MainActivity : AppCompatActivity() {
         binding.searchView.apply{
             setOnClickListener {
                 onActionViewExpanded()
+                showLoading(false)
             }
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
+                    mainViewModel.cancelRequest("req")
                     showLoading(true)
                     mainViewModel.findByUsername(query)
                     mainViewModel.setSearch(query)
-                    setData()
                     return true
                 }
                 override fun onQueryTextChange(newText: String): Boolean {
-                    showLoading(true)
+                    mainViewModel.cancelRequest("req")
                     if(newText.isNotEmpty()) {
+                        showLoading(true)
                         mainViewModel.findByUsername(newText)
                         mainViewModel.setSearch(newText)
                     } else {
                         mainViewModel.all()
                     }
-                    setData()
                     return true
                 }
             })
         }
+        mainViewModel.getSearch().observe(this, { search ->
+            if (search != "") {
+                mainViewModel.findByUsername(search)
+            }
+            else {
+                mainViewModel.all()
+            }
+        })
     }
 
     private fun recycler() {
@@ -120,20 +128,27 @@ class MainActivity : AppCompatActivity() {
                     }
                 })
             } else {
-                showLoading(false)
                 binding.notFound.visibility = View.VISIBLE
+                showLoading(false)
+                animState = true
             }
         })
     }
 
     private fun showLoading(state: Boolean) {
         if(state) {
+            binding.rvUser.visibility = View.GONE
             binding.progressBar.visibility = View.VISIBLE
         } else {
             lifecycleScope.launch(Dispatchers.Default) {
                 delay(1000L)
                 withContext(Dispatchers.Main) {
-                    binding.progressBar.visibility =View.GONE
+                    binding.rvUser.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
+                    if(animState) {
+                        animState = false
+                        binding.rvUser.visibility = View.GONE
+                    }
                 }
             }
         }

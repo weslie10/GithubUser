@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.githubuser.model.User
+import com.example.githubuser.model.user.User
 import com.example.githubuser.databinding.ItemListBinding
 
 class UserDetailAdapter: RecyclerView.Adapter<UserDetailAdapter.ListViewHolder>() {
@@ -24,6 +24,7 @@ class UserDetailAdapter: RecyclerView.Adapter<UserDetailAdapter.ListViewHolder>(
                         .load(avatar)
                         .into(itemUserPhoto)
                     itemUserUsername.text = username
+                    itemView.setOnClickListener { onItemClickCallback.onItemClicked(user) }
                 }
             }
         }
@@ -39,4 +40,12 @@ class UserDetailAdapter: RecyclerView.Adapter<UserDetailAdapter.ListViewHolder>(
     }
 
     override fun getItemCount(): Int = listUser.size
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+    interface OnItemClickCallback {
+        fun onItemClicked(data: User)
+    }
 }

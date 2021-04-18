@@ -33,21 +33,22 @@
         style="@style/grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+        app:layout_constraintTop_toBottomOf="@+id/search_view"
+        tools:listitem="@layout/item_list" />
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/not_found"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintHeight_percent=".99"
         android:background="@color/grey"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_view"
-        android:orientation="vertical"
-        android:visibility="gone"
         android:translationZ="1dp">
 
         <View
@@ -58,15 +59,30 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            style="@style/grid"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@string/no_match"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:layout_marginTop="32dp"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginBottom="48dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/not_found_animation"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                app:lottie_rawRes="@raw/searching"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="32sp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:text="@string/no_match" />
+        </LinearLayout>
+    </FrameLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/progressBar"
@@ -78,10 +94,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:cardCornerRadius="24dp">
 
-        <ProgressBar
-            android:padding="16dp"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:lottie_rawRes="@raw/glasshour"
+            app:lottie_speed=".5"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

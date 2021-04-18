@@ -9,20 +9,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:paddingTop="16dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/detail_photo"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_marginLeft="16dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/ic_account_circle_120" />
+            tools:src="@tools:sample/avatars" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginStart="16dp"
             app:layout_constraintTop_toTopOf="@id/detail_photo"
             app:layout_constraintBottom_toBottomOf="@id/detail_photo"
             app:layout_constraintStart_toEndOf="@id/detail_photo">
@@ -31,18 +33,30 @@
                 android:id="@+id/detail_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:textSize="24sp"
                 android:textColor="@color/black"
-                tools:text="none" />
+                tools:text="@tools:sample/full_names" />
 
             <TextView
                 android:id="@+id/detail_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:textSize="16sp"
-                tools:text="none" />
+                tools:text="@tools:sample/first_names" />
+
+            <ImageView
+                android:id="@+id/favorite"
+                android:padding="8dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_favorite_border_24"
+                android:contentDescription="@string/favorite" />
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="false"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -61,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    tools:text="0"
+                    tools:text="@tools:sample/us_zipcodes"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize"
                     android:textStyle="bold" />
@@ -70,6 +84,7 @@
                     android:id="@+id/tv_repositories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    tools:text="Repository"
                     android:textColor="@color/black"
                     android:textSize="@dimen/textSize" />
             </LinearLayout>
@@ -93,13 +108,14 @@
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:textSize="@dimen/textSize"
-                    tools:text="0"
+                    tools:text="@tools:sample/us_zipcodes"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_followers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    tools:text="Followers"
                     android:textSize="@dimen/textSize"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -123,13 +139,14 @@
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:textSize="@dimen/textSize"
-                    tools:text="0"
+                    tools:text="@tools:sample/us_zipcodes"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_following"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    tools:text="Following"
                     android:textSize="@dimen/textSize"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -140,6 +157,7 @@
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
             app:layout_constraintTop_toBottomOf="@id/ll_repositories"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -152,6 +170,7 @@
             app:layout_constraintTop_toBottomOf="@id/separator"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="16dp"
             app:cardElevation="3dp"
             app:cardCornerRadius="10dp">
 
@@ -174,12 +193,13 @@
                         android:layout_height="32dp"
                         android:src="@drawable/ic_corporate_fare_24"
                         app:tint="@color/black"
+                        android:contentDescription="@string/company"
                         android:layout_gravity="center_vertical"/>
 
                     <TextView
                         android:id="@+id/detail_company"
                         style="@style/detail"
-                        tools:text="none"
+                        tools:text="@tools:sample/cities"
                         android:layout_gravity="center_vertical" />
                 </LinearLayout>
 
@@ -201,7 +221,7 @@
                     <TextView
                         android:id="@+id/detail_location"
                         style="@style/detail"
-                        tools:text="none"
+                        tools:text="@tools:sample/cities"
                         android:layout_gravity="center_vertical"/>
                 </LinearLayout>
             </LinearLayout>
@@ -212,7 +232,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
             android:padding="8dp"
             app:tabIndicatorColor="@color/white"
             app:tabMode="fixed"
@@ -226,28 +247,41 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintHeight_percent=".48"
+            android:layout_marginHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_percent=".47"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tabs"/>
 
-        <androidx.cardview.widget.CardView
+        <FrameLayout
             android:id="@+id/progressBarDetail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:translationZ="1dp">
+            android:visibility="gone"
+            android:translationZ="3dp">
 
-            <ProgressBar
-                android:layout_margin="16dp"
-                style="?android:attr/progressBarStyle"
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-        </androidx.cardview.widget.CardView>
+                android:layout_gravity="center"
+                app:cardCornerRadius="24dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animationView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@color/black"
+                    app:lottie_rawRes="@raw/glasshour"
+                    app:lottie_speed=".5"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true" />
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

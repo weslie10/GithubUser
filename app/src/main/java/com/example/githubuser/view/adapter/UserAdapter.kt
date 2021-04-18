@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.githubuser.model.User
+import com.example.githubuser.model.user.User
 import com.example.githubuser.databinding.ItemGridBinding
 
 class UserAdapter: RecyclerView.Adapter<UserAdapter.ListViewHolder>() {

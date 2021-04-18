@@ -1,5 +1,6 @@
 package com.example.githubuser.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser.R
 import com.example.githubuser.view.adapter.UserDetailAdapter
 import com.example.githubuser.databinding.FragmentUserBinding
+import com.example.githubuser.model.user.User
+import com.example.githubuser.view.activity.DetailActivity
+import com.example.githubuser.view.adapter.RepoAdapter
 import com.example.githubuser.viewmodel.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -20,7 +24,10 @@ import kotlinx.coroutines.withContext
 class UserFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
     private lateinit var adapter: UserDetailAdapter
+    private lateinit var adapterRepo: RepoAdapter
     private lateinit var mainViewModel: MainViewModel
+
+    private var notFound = false
 
     companion object {
         private const val NAME = "name"
@@ -39,6 +46,7 @@ class UserFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentUserBinding.inflate(inflater, container, false)
         adapter = UserDetailAdapter()
+        adapterRepo = RepoAdapter()
 
         mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
         recyclerView()
@@ -53,7 +61,12 @@ class UserFragment : Fragment() {
         val name = arguments?.getString(NAME)
         val type = arguments?.getString(TYPE)
         showLoading(true)
-        mainViewModel.follow(name, type)
+        if (type == "repository") {
+            mainViewModel.repo(name)
+        }
+        else {
+            mainViewModel.follow(name, type)
+        }
         setData(type)
     }
 
@@ -62,37 +75,68 @@ class UserFragment : Fragment() {
         binding.rvUser.setHasFixedSize(true)
         binding.rvUser.layoutManager = LinearLayoutManager(context)
         binding.rvUser.adapter = adapter
+        adapter.setOnItemClickCallback(object : UserDetailAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: User) {
+                val moveIntent = Intent(activity, DetailActivity::class.java).apply{
+                    putExtra(DetailActivity.EXTRA_USER, data)
+                }
+                startActivity(moveIntent)
+            }
+        })
+    }
+
+    private fun recyclerViewRepo() {
+        adapterRepo.notifyDataSetChanged()
+        binding.rvUser.setHasFixedSize(true)
+        binding.rvUser.layoutManager = LinearLayoutManager(context)
+        binding.rvUser.adapter = adapterRepo
     }
 
     private fun setData(type: String?) {
         mainViewModel.getState().observe(viewLifecycleOwner, { state->
             if(state) {
                 binding.notFound.visibility = View.GONE
-                mainViewModel.getUser().observe(viewLifecycleOwner, { userItems ->
-                    if (userItems != null) {
-                        showLoading(false)
-                        adapter.setData(userItems)
-                        recyclerView()
-                    }
-                })
+                if(type == "repository") {
+                    mainViewModel.getRepo().observe(viewLifecycleOwner, { userItems ->
+                        if (userItems != null) {
+                            showLoading(false)
+                            adapterRepo.setData(userItems)
+                            recyclerViewRepo()
+                        }
+                    })
+                }
+                else {
+                    mainViewModel.getUser().observe(viewLifecycleOwner, { userItems ->
+                        if (userItems != null) {
+                            showLoading(false)
+                            adapter.setData(userItems)
+                            recyclerView()
+                        }
+                    })
+                }
             }
             else {
+                binding.notFound.text = "${resources.getString(R.string.not_found)} ${type}"
+                notFound = true
                 showLoading(false)
-                binding.notFound.text = "${resources.getString(R.string.not_found)} ${resources.getQuantityString(if(type == "followers") R.plurals.follower else R.plurals.following, 1)}"
-                binding.notFound.visibility = View.VISIBLE
             }
         })
-
     }
 
     private fun showLoading(state: Boolean) {
         if(state) {
             binding.progressBar.visibility = View.VISIBLE
+            binding.rvUser.visibility = View.GONE
         } else {
             lifecycleScope.launch(Dispatchers.Default) {
-                delay(3000L)
+                delay(1500L)
                 withContext(Dispatchers.Main) {
-                    binding.progressBar.visibility =View.GONE
+                    binding.progressBar.visibility = View.GONE
+                    binding.rvUser.visibility = View.VISIBLE
+                    if(notFound) {
+                        binding.notFound.visibility = View.VISIBLE
+                        binding.rvUser.visibility = View.GONE
+                    }
                 }
             }
         }

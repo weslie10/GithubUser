@@ -3,12 +3,14 @@ package com.example.githubuser.view.adapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.githubuser.R
 import com.example.githubuser.view.fragment.UserFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
     private val type = arrayListOf(
         "followers",
-        "following"
+        "following",
+        "repository"
     )
     var name: String? = null
     override fun createFragment(position: Int): Fragment {
